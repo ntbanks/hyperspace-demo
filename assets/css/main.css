@@ -1,7 +1,107 @@
+
+
+/* base variables for color and background */
 :root {
-	--main-bg-color: red;
+	--main-bg-color: #e5e5e5;
+	--main-text-color: #4C5964;
+	--sidebar-bg-color: #2d3037;
+	--sidebar-text-color: white;
+	--input-bg-color: black;
+	--input-text-color: white;
+	--input-border-color: black;
 }
 
-body{
+/* this removes the X button that minimizes the sidebar */
+button[kind=icon]{
+	display: none !important;
+}
+
+/* this is the main section */
+.css-1y0tads{
 	background-color: var(--main-bg-color);
+	color: var(--main-text-color) !important;
+}
+
+/* these are the logo and the text branding in the top left of the app */
+.toplogo{
+	width: 75px;
+	padding-left: 15px;
+	padding-right: 10px;
+	padding-bottom: 8px;
+	display: inline-block;
+}
+.toptext{
+	display: inline-block;
+	color: var(--sidebar-text-color);
+	font-weight: bold;
+	font-size: 18px;
+}
+.topdiv{
+	z-index: 101;
+	display: inline-block;
+	position: fixed;
+	top: 5px;
+	left: 0;
+}
+
+/* this removes the weird colored line on the top of all streamlit apps */
+div[data-testid=stDecoration]{
+	display: none;
+}
+
+/* this is the main div for the sidebar */
+.css-1tdez3t{
+	background-color: var(--sidebar-bg-color);
+}
+
+/* removes the "made my streamlit" footer */
+footer{
+	display: none !important;
+}
+
+/* main section title color - should be a global declaration for everything in the main section */ 
+.title{
+	color: var(--main-text-color);
+} 
+
+/* remove labels for widgets */ 
+label {
+	display: none;
+} 
+
+/* custom label classes */
+.main-label {
+	font-size: 16px !important;
+	color: var(--main-text-color) !important;
+}
+
+.sidebar-label {
+	font-size: 16px !important;
+	color: var(--sidebar-text-color) !important;
+}
+
+.st-bu, .st-db{
+	background-color: var(--input-bg-color);
+	color: var(--input-text-color);
+}
+.st-bp, .st-ec{
+	color: var(--input-text-color) !important;
+}
+.st-bt{
+	border-bottom-color: var(--input-border-color);
+}
+.st-bs{
+	border-top-color: var(--input-border-color);
+}
+.st-br{
+	border-right-color: var(--input-border-color);
+}
+.st-bq{
+	border-left-color: var(--input-border-color);
+}
+.st-e9 {
+	border-bottom-color: var(--input-border-color);
+}
+.st-e8 {
+	border-top-color: var(--input-border-color);
 }
