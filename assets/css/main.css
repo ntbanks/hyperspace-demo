@@ -15,13 +15,14 @@
 	--dropdown-bg-color: #25262B;
 	--dropdown-hover-color: rgba(255, 255, 255, 0.1);
 	--accordion-bg-color: #23242B;
+	--max-width: 450px;
 }
 
 /* this is the topbar */
-.css-1eyqeok {
-	height: 75px;
-	background-color: var(--topbar-bg-color);
-	background-image: none;
+header {
+	height: 75px !important;
+	background-color: var(--topbar-bg-color) !important;
+	background-image: none !important;
 }
 
 /* this is the main section */
@@ -117,12 +118,11 @@ label {
 	background-color: var(--card-bg-color);
 	box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.24);
 	border-radius: 4px;
-	max-width: 450px;
+	max-width: --var(--max-width);
 	padding-top: 20px;
 	margin-top: 30px;
+	margin-bottom: 30px;
 }
-
-
 
 .content {
 	font-size: 16px;
@@ -148,6 +148,10 @@ div[data-baseweb=base-input] {
 	background-color: var(--input-bg-color);
 }
 
+div[data-baseweb=base-input] > input{
+	color: var(--input-text-color);
+}
+
 /* selectbox bg */
 div[data-baseweb=select] > div{
 	background-color: var(--input-bg-color) !important; 
@@ -157,6 +161,11 @@ div[data-baseweb=select] > div{
 div[data-baseweb=popover] {
 	margin-top: 6px !important; 
 	background-color: rgba(0,0,0,0) !important;
+}
+
+/* active drop down option */
+div[data-baseweb=popover] li[aria-selected=true] {
+	background: var(--dropdown-hover-color) !important;
 }
 
 /* selectbox options */
@@ -169,8 +178,11 @@ ul {
 	font-family: var(--font-fam);
 }
 
-/* active drop down option */
-.css-1mzm8su{
-	background: var(--dropdown-hover-color) !important;
+#MainMenu {
+	display: none;
 }
 
+.stSelectbox, .stTextInput {
+	max-width: var(--max-width);
+	padding-top: 20px;
+}
