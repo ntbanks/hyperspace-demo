@@ -2,46 +2,54 @@
 
 /* base variables for color and background */
 :root {
-	--main-bg-color: #e5e5e5;
-	--main-text-color: #4C5964;
-	--sidebar-bg-color: #2d3037;
-	--sidebar-text-color: white;
-	--input-bg-color: black;
+	--main-bg-color: #16161A;
+	--input-bg-color: #414248;
 	--input-text-color: white;
-	--input-border-color: black;
+	--topbar-bg-color: #25262B;
+	--topbar-text-color: white;
+	--content-color: #DEDDDD;
+	--content2-color: #ACACAC;
+	--card-bg-color: #1B1C1E;
+	--title-color: rgba(255,255,255,.98); 
+	--font-fam: "Open Sans";
+	--dropdown-bg-color: #25262B;
+	--dropdown-hover-color: rgba(255, 255, 255, 0.1);
+	--accordion-bg-color: #23242B;
 }
 
-/* this removes the X button that minimizes the sidebar */
-button[kind=icon]{
-	display: none !important;
+/* this is the topbar */
+.css-ilb8f5 {
+	height: 75px;
+	background-color: var(--topbar-bg-color);
+	background-image: none;
 }
 
 /* this is the main section */
 .css-1y0tads{
 	background-color: var(--main-bg-color);
 	color: var(--main-text-color) !important;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 
 /* these are the logo and the text branding in the top left of the app */
 .toplogo{
-	width: 75px;
-	padding-left: 15px;
-	padding-right: 10px;
-	padding-bottom: 8px;
+	height: 35px;
+	margin: 20px;
 	display: inline-block;
 }
 .toptext{
 	display: inline-block;
-	color: var(--sidebar-text-color);
+	color: var(--topbar-text-color);
 	font-weight: bold;
 	font-size: 18px;
 }
 .topdiv{
-	z-index: 101;
+	z-index: 1000021;
 	display: inline-block;
 	position: fixed;
-	top: 5px;
-	left: 0;
+	top: 0;
+	left: 10px;
 }
 
 /* this removes the weird colored line on the top of all streamlit apps */
@@ -49,59 +57,120 @@ div[data-testid=stDecoration]{
 	display: none;
 }
 
-/* this is the main div for the sidebar */
-.css-1tdez3t{
-	background-color: var(--sidebar-bg-color);
-}
-
 /* removes the "made my streamlit" footer */
 footer{
 	display: none !important;
 }
 
+/* column spacing */
+.e1tzin5v2 {
+	padding-right: 30px;
+}
+
+/* TYPOGRAPHY */
+/* can't style labels so i removed this */
+label {
+	font-size: 16px !important;
+	color: var(--content-color) !important;
+	font-family: var(--font-fam);
+	font-weight: 400;
+}
+
 /* main section title color - should be a global declaration for everything in the main section */ 
 .title{
-	color: var(--main-text-color);
+	color: var(--title-color);
+	font-size: 24px;
+	font-family: var(--font-fam);
+	font-weight: 700;
 } 
 
-/* remove labels for widgets */ 
-label {
-	display: none;
+.streamlit-expanderContent {
+	background-color: var(--card-bg-color);
+	//padding-top: 0px;
+}
+
+.streamlit-expanderHeader {
+	background-color: var(--accordion-bg-color);
+	font-family: var(--font-fam);
+	padding: 20px 20px;
+	font-weight: 700;
+	font-size: 14px;
 } 
 
-/* custom label classes */
-.main-label {
-	font-size: 16px !important;
-	color: var(--main-text-color) !important;
+.card-title{
+	color: var(--title-color);
+	font-size: 20px;
+	font-family: var(--font-fam);
+	font-weight: 700;
+	padding-left: 20px;
+	margin-bottom: 10px;
 }
 
-.sidebar-label {
-	font-size: 16px !important;
-	color: var(--sidebar-text-color) !important;
+.section-title{
+	color: var(--title-color);
+	font-size: 20px;
+	font-family: var(--font-fam);
+	font-weight: 700;
 }
 
-.st-bu, .st-db{
+.card {
+	background-color: var(--card-bg-color);
+	box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.24);
+	border-radius: 4px;
+	max-width: 450px;
+	padding-top: 20px;
+	margin-top: 30px;
+}
+
+
+
+.content {
+	font-size: 16px;
+	color: var(--content-color);
+	font-family: var(--font-fam);
+	font-weight: 400;
+}
+
+/* accordion content */
+.content2 {
+	font-size: 14px;
+	font-family: var(--font-fam);
+	color: var(--content2-color);
+	font-weight: 400;
+	margin-bottom: 0px;
+	padding: 20px;
+	padding-top: 0px;
+}
+
+/* INPUTS */
+/* text box bg */
+div[data-baseweb=base-input] {
 	background-color: var(--input-bg-color);
-	color: var(--input-text-color);
 }
-.st-bp, .st-ec{
-	color: var(--input-text-color) !important;
+
+/* selectbox bg */
+div[data-baseweb=select] > div{
+	background-color: var(--input-bg-color) !important; 
 }
-.st-bt{
-	border-bottom-color: var(--input-border-color);
+
+/* drop down options wrapper */
+div[data-baseweb=popover] {
+	margin-top: 6px !important; 
+	background-color: rgba(0,0,0,0) !important;
 }
-.st-bs{
-	border-top-color: var(--input-border-color);
+
+/* selectbox options */
+ul {
+	background-color: var(--dropdown-bg-color) !important;
 }
-.st-br{
-	border-right-color: var(--input-border-color);
+
+/* selectbox and text input font family */
+.st-ae {
+	font-family: var(--font-fam);
 }
-.st-bq{
-	border-left-color: var(--input-border-color);
+
+/* active drop down option */
+.css-689db5{
+	background: var(--dropdown-hover-color) !important;
 }
-.st-e9 {
-	border-bottom-color: var(--input-border-color);
-}
-.st-e8 {
-	border-top-color: var(--input-border-color);
-}
+
