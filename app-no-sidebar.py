@@ -49,6 +49,21 @@ st.markdown("<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapi
 # writes the logo and title into the header
 st.markdown(top_logo_html, unsafe_allow_html=True)  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+## EVERYTHING FROM HERE DOWN IS JUST EXAMPLES!
+
 chart_data = pd.DataFrame(
      np.random.randn(20, 3),
      columns=['a', 'b', 'c'])
@@ -69,10 +84,13 @@ with first:
 with second:
     select_side = st.selectbox('Dropdown Select', ('Option 1', 'Option 2','Option 3'))
     check_test = st.checkbox('Show line chart')
-    st.markdown(download_link, unsafe_allow_html=True)
 
-st.markdown("<p class='section-title'>Information Display</p>",unsafe_allow_html=True)
+st.markdown("<p class='section-title'><br>Information Display</p>",unsafe_allow_html=True)
 st.markdown("<p class='content'>Regular content that's not in an accordion or card looks like this</p>", unsafe_allow_html=True)
+
+if test_sel == 'Yes':
+    st.dataframe(df)
+    st.markdown(download_link, unsafe_allow_html=True)
 
 expander1 = st.beta_expander("Accordion title", expanded=False)
 with expander1:
@@ -83,9 +101,6 @@ with expander2:
 
 st.markdown("<div class='card'><p class='card-title'>Cool card title<p class='content2'>Lots of card content and stuff<br><br>tincidunt sit amet nibh ut imperdiet. Suspendisse dictum finibus velit, in ullamcorper nibh efficitur non. Pellentesque aliquet quam in lorem viverra, et condimentum nunc fringilla. Morbi non tempus leo. Curabitur eget velit risus. Quisque dictum risus ut mattis semper. Ut semper nulla luctus, rutrum elit a, iaculis neque. Integer malesuada sollicitudin risus, sed pulvinar justo volutpat pretium. Sed fermentum scelerisque diam fermentum congue. Maecenas non est ante. Proin eu ex ante.</p></div>",unsafe_allow_html=True);
 
-
-if test_sel == 'Yes':
-    st.dataframe(df)
 
 if check_test:
     st.line_chart(chart_data)

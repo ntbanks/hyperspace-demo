@@ -49,6 +49,21 @@ st.markdown("<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapi
 # writes the logo and title into the header
 st.markdown(top_logo_html, unsafe_allow_html=True)  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+## EVERYTHING FROM HERE DOWN IS JUST EXAMPLES!
+
 sidebar, main = st.beta_columns((1,4))
 
 chart_data = pd.DataFrame(
