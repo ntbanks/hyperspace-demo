@@ -1,4 +1,4 @@
-
+/* Standard CSS for DS Prototype apps
 
 /* base variables for color and background */
 :root {
@@ -13,9 +13,11 @@
 	--title-color: rgba(255,255,255,.98); 
 	--font-fam: "Open Sans";
 	--dropdown-bg-color: #25262B;
+	--accordion-text-color: #FFFFFF;
 	--dropdown-hover-color: rgba(255, 255, 255, 0.1);
 	--accordion-bg-color: #23242B;
-	--max-width: 450px;
+	--max-width: 500px;
+	--button-color: #0055B9;
 }
 
 /* this is the topbar */
@@ -26,11 +28,8 @@ header {
 }
 
 /* this is the main section */
-.css-1y0tads{
+div[data-testid=stReportViewContainer]{
 	background-color: var(--main-bg-color);
-	color: var(--main-text-color) !important;
-	padding-left: 50px;
-	padding-right: 50px;
 }
 
 /* these are the logo and the text branding in the top left of the app */
@@ -53,23 +52,7 @@ header {
 	left: 10px;
 }
 
-/* this removes the weird colored line on the top of all streamlit apps */
-div[data-testid=stDecoration]{
-	display: none;
-}
-
-/* removes the "made my streamlit" footer */
-footer{
-	display: none !important;
-}
-
-/* column spacing */
-.e1tzin5v2 {
-	padding-right: 30px;
-}
-
-/* TYPOGRAPHY */
-/* can't style labels so i removed this */
+/* labels for most inputs */
 label {
 	font-size: 16px !important;
 	color: var(--content-color) !important;
@@ -77,7 +60,7 @@ label {
 	font-weight: 400;
 }
 
-/* main section title color - should be a global declaration for everything in the main section */ 
+/* main section title */ 
 .title{
 	color: var(--title-color);
 	font-size: 24px;
@@ -85,13 +68,15 @@ label {
 	font-weight: 700;
 } 
 
+/* expanded part of accordion */
 .streamlit-expanderContent {
 	background-color: var(--card-bg-color);
-	//padding-top: 0px;
 }
 
+/* not expanded part of accordion */
 .streamlit-expanderHeader {
 	background-color: var(--accordion-bg-color);
+	color: var(--accordion-text-color);
 	font-family: var(--font-fam);
 	padding: 20px 20px;
 	font-weight: 700;
@@ -118,20 +103,22 @@ label {
 	background-color: var(--card-bg-color);
 	box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.24);
 	border-radius: 4px;
-	max-width: --var(--max-width);
+	max-width: var(--max-width);
 	padding-top: 20px;
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
 
+/* body content */
 .content {
 	font-size: 16px;
 	color: var(--content-color);
 	font-family: var(--font-fam);
 	font-weight: 400;
+	padding-top: 10px;
 }
 
-/* accordion content */
+/* accordion and card content */
 .content2 {
 	font-size: 14px;
 	font-family: var(--font-fam);
@@ -148,6 +135,7 @@ div[data-baseweb=base-input] {
 	background-color: var(--input-bg-color);
 }
 
+/* text box text */
 div[data-baseweb=base-input] > input{
 	color: var(--input-text-color);
 }
@@ -178,11 +166,39 @@ ul {
 	font-family: var(--font-fam);
 }
 
+/* drop down and text input boxes */
+.stSelectbox, .stTextInput {
+	max-width: var(--max-width);
+	padding-top: 20px;
+}
+
+/* REMOVING STREAMLIT BRANDING THINGS */
+/* hamburger menu in top right */
 #MainMenu {
 	display: none;
 }
 
-.stSelectbox, .stTextInput {
-	max-width: var(--max-width);
-	padding-top: 20px;
+/* this is the "running" status bar thing */
+div[data-testid=stStatusWidget] {
+	display: none;
+}
+
+/* this removes the weird colored line on the top of all streamlit apps */
+div[data-testid=stDecoration]{
+	display: none;
+}
+
+/* removes the "made my streamlit" footer */
+footer{
+	display: none !important;
+}
+
+.downloadlink {
+	background-color: var(--button-color);
+	padding: 10px 16px;
+	border-radius: 4px; 
+	font-family: var(--font-fam);
+	font-weight: 700;
+	color: var(--content-color) !important;
+	text-decoration: none;
 }
