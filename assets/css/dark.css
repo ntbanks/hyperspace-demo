@@ -1,0 +1,19 @@
+/* base variables for color and background */
+:root {
+	--main-bg-color: #16161A;
+	--input-bg-color: #414248;
+	--input-text-color: white;
+	--topbar-bg-color: #25262B;
+	--topbar-text-color: white;
+	--content-color: #DEDDDD;
+	--content2-color: #ACACAC;
+	--card-bg-color: #1B1C1E;
+	--title-color: rgba(255,255,255,.98); 
+	--font-fam: "Open Sans";
+	--dropdown-bg-color: #25262B;
+	--accordion-text-color: #FFFFFF;
+	--dropdown-hover-color: rgba(255, 255, 255, 0.1);
+	--accordion-bg-color: #23242B;
+	--max-width: 500px;
+	--button-color: #0055B9;
+}

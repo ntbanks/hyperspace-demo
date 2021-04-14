@@ -42,7 +42,9 @@ top_logo_html=f"""
 # sets widescreen and the page_icon and title that show up in the tab
 st.set_page_config(layout="wide", page_title=title_string, page_icon=icon_url)
 st.markdown("<style>section.main{padding-left: 12%; padding-right: 12%;}</style>", unsafe_allow_html=True)
+
 # load in .css file. right now, main.css is dark theme
+local_css('./assets/css/dark.css')
 local_css('./assets/css/main.css')
 # Open Sans font
 st.markdown("<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Open+Sans\" />", unsafe_allow_html=True)
