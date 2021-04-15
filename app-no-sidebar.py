@@ -30,6 +30,12 @@ def download_link(object_to_download, download_filename, download_link_text):
         b64 = base64.b64encode(object_to_download.encode()).decode()
         return f'<a class=downloadlink href="data:file/txt;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
 
+def get_card(title, content):
+    return f"<div class='card'><h2 class=card-title>{title}</h2><p class='card'>{content}</p></div>"
+
+def get_accordion(content):
+    return f"<p class='card'>{content}</p>"
+
 def parse_args(args):
     parser = argparse.ArgumentParser('DS POC')
     parser.add_argument('--theme', help='Theme: dark or light', default='dark', required=False)
@@ -114,20 +120,20 @@ with second:
     check_test = st.checkbox('Show line chart')
 
 st.header("Information Display")
-st.markdown("<p>Regular content that's not in an accordion or card looks like this</p>", unsafe_allow_html=True)
-st.markdown("<p>A streamlit data frame looks like this</p>", unsafe_allow_html=True)
+st.markdown("Regular content that's not in an accordion or card looks like this", unsafe_allow_html=True)
+st.markdown("A streamlit data frame looks like this", unsafe_allow_html=True)
 if test_sel == 'Yes':
     st.dataframe(df)
     st.markdown(download_link, unsafe_allow_html=True)
 
 expander1 = st.beta_expander("Accordion title", expanded=False)
 with expander1:
-    st.markdown("<p class='card'>Hidden accordion content</p>",unsafe_allow_html=True)
+    st.markdown(get_accordion("Hidden accordion content"),unsafe_allow_html=True)
 expander2 = st.beta_expander("Accordion title", expanded=True)
 with expander2:
     st.markdown("<p class='card'>The content within an accordion panel could include a variety of content types. The content can be – a long paragraph of description text, structured content, unordered lists, images with captions, simple or complex tables, data visualizations and a lot more.The content within an accordion panel could include a variety of content types. The content can be – a long paragraph of description text, structured content, unordered lists, images with captions, simple or complex tables, data visualizations and a lot more.</p>", unsafe_allow_html=True);
 
-st.markdown("<div class='card'><h3>Cool card title</h3><p class='card'>Lots of card content and stuff<br><br>tincidunt sit amet nibh ut imperdiet. Suspendisse dictum finibus velit, in ullamcorper nibh efficitur non. Pellentesque aliquet quam in lorem viverra, et condimentum nunc fringilla. Morbi non tempus leo. Curabitur eget velit risus. Quisque dictum risus ut mattis semper. Ut semper nulla luctus, rutrum elit a, iaculis neque. Integer malesuada sollicitudin risus, sed pulvinar justo volutpat pretium. Sed fermentum scelerisque diam fermentum congue. Maecenas non est ante. Proin eu ex ante.</p></div>",unsafe_allow_html=True);
+st.markdown(get_card("Cool card title","Lots of card content and stuff<br><br>tincidunt sit amet nibh ut imperdiet. Suspendisse dictum finibus velit, in ullamcorper nibh efficitur non. Pellentesque aliquet quam in lorem viverra, et condimentum nunc fringilla. Morbi non tempus leo. Curabitur eget velit risus. Quisque dictum risus ut mattis semper. Ut semper nulla luctus, rutrum elit a, iaculis neque. Integer malesuada sollicitudin risus, sed pulvinar justo volutpat pretium. Sed fermentum scelerisque diam fermentum congue. Maecenas non est ante. Proin eu ex ante."),unsafe_allow_html=True);
 
 
 if check_test:

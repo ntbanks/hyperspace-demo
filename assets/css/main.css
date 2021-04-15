@@ -63,7 +63,7 @@ h1{
 	margin-bottom: 20px;
 } 
 
-/* st.header() */
+/* st.header() and card title when paired with .card-title */
 h2{
 	color: var(--title-color);
 	font-size: 20px;
@@ -71,12 +71,16 @@ h2{
 	font-weight: 700;
 }
 
-/* st.subheader() and card title */
+/* st.subheader() */
 h3{
 	color: var(--title-color);
-	font-size: 20px;
+	font-size: 18px;
 	font-family: var(--font-fam);
 	font-weight: 700;
+}
+
+/* for card title */
+.card-title{
 	padding-left: 20px;
 	margin-bottom: 10px;
 	margin-top: 0px;
