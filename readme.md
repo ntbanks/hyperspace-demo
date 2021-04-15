@@ -3,8 +3,13 @@
 > pip install -r requirements.txt
 
 ## Running
-There are two versions of the app.
+There are two versions of the app.\
+Both can accept a theme argument with either "light" or "dark" as options:
+> streamlit run app.py -- --theme light
+dark is the default
 
+The extra set of "--" is so that streamlit ignores all of the args and they get passed straight to the python.\
+If the streamlit app needs an argument, like port, this will need to be removed and the theme will need to be set manually.
 ### app.py 
 Set up with inputs on a left "sidebar" and the data displays/text in a main section.
 > streamlit run app.py
@@ -12,13 +17,6 @@ Set up with inputs on a left "sidebar" and the data displays/text in a main sect
 ### app-no-sidebar.py 
 Set up with inputs at the top and the data displays/text below.
 > streamlit run app-no-sidebar.py
-
-Both can accept a theme argument with either "light" or "dark" as options:
-> streamlit run app.py -- --theme light
-dark is the default
-
-The extra set of "--" is so that streamlit ignores all of the args and they get passed straight to the python.\
-If the streamlit app needs an argument, like port, this will need to be removed and the theme will need to be set manually.
 
 ## Theming
 All of the streamlit interactive input componenets and most text options are automatically formatted. Below is the list of formatted text options:\
