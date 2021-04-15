@@ -28,7 +28,7 @@ st.subheader() - the same as st.header() but smaller\
 st.markdown() - all body text\
 st.text() - this is designed by streamlit as a fixed width text display and will force a scroll bar if the text is too long. use markdown\
 
-###Accordion:
+### Accordion:
 The title bar of the accordion is styled automatically but the content needs to be wrapped in a paragraph tag like this:
 ```
 expander1 = st.beta_expander("Accordion title", expanded=False)
@@ -43,7 +43,7 @@ with expander1:
     st.markdown(get_accordion("Hidden accordion content"),unsafe_allow_html=True)
 ```
 
-###Cards:
+### Cards:
 There is a "get_card()" function that takes two args (title, content) and wraps them in the necessary html tags and returns the full html needed for the card.
 ```
 st.markdown(get_card("title","content"), unsafe_allow_html=True)
