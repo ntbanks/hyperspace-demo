@@ -1,0 +1,21 @@
+/* base variables for color and background */
+:root {
+	--main-bg-color: #E8E8F0;
+	--input-bg-color: #FFFFFF;
+	--input-text-color: #23242B;
+	--topbar-bg-color: #FFFFFF;
+	--topbar-text-color: #23242B;
+	--content-color: #23242B;
+	--content2-color: #23242B;
+	--card-bg-color: #FFFFFF;
+	--title-color: rgba(37,38,43,.98);
+	--font-fam: "Open Sans";
+	--dropdown-bg-color: #FFFFFF;
+	--accordion-text-color: #23242B;
+	--dropdown-hover-color: #F8F8F8;
+	--accordion-bg-color: #FFFFFF;
+	--accordion-expand-bg-color: #F8F8F8;
+	--max-width: 500px;
+	--button-color: #0055B9;
+	--button-text-color: #FFFFFF;
+}

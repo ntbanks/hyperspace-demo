@@ -3,6 +3,8 @@ import streamlit.components.v1 as components
 import base64
 import pandas as pd
 import numpy as np
+import argparse
+import sys
 
 def local_css(file_name):
     with open(file_name) as f:
@@ -28,9 +30,41 @@ def download_link(object_to_download, download_filename, download_link_text):
         b64 = base64.b64encode(object_to_download.encode()).decode()
         return f'<a class=downloadlink href="data:file/txt;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
 
-icon_url = f"data:image/png;base64,{load_image('./assets/static/logo.png')}"
+def parse_args(args):
+    parser = argparse.ArgumentParser('DS POC')
+    parser.add_argument('--theme', help='Theme: dark or light', default='dark', required=False)
+    return parser.parse_args(args)
+
+args = parse_args(sys.argv[1:])
+cust_theme = args.theme
+
+# load in .css file/logo and write to the config.toml logo based on theme choice
+
+if cust_theme == "light":
+    icon_url = f"data:image/png;base64,{load_image('./assets/static/logo-light.png')}"
+    css_file = ('./assets/css/light.css')
+    f = open("./.streamlit/config.toml", "w")
+    toml_txt = "[theme]\nprimaryColor='#908F8F'\nbackgroundColor='#E8E8F0'\nsecondaryBackgroundColor='#F8F8F8'\ntextColor='#23242B'\nfont='sans serif'"
+    f.write(toml_txt)
+    f.close()
+else:
+    icon_url = f"data:image/png;base64,{load_image('./assets/static/logo-dark.png')}"
+    css_file = ('./assets/css/dark.css')
+    f = open("./.streamlit/config.toml", "w")
+    toml_txt = "[theme]\nprimaryColor='#908F8F'\nbackgroundColor='#0e1117'\nsecondaryBackgroundColor='#23242B'\ntextColor='#fafafa'\nfont='sans serif'"
+    f.write(toml_txt)
+    f.close()
+
+# sets widescreen and the page_icon and title that show up in the tab
+
 title_string = 'RS21 DS Prototype'
-#title_string = ''
+st.set_page_config(layout="wide", page_title=title_string, page_icon=icon_url)
+
+local_css(css_file)
+local_css('./assets/css/main.css')
+
+# Open Sans font
+st.markdown("<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Open+Sans\" />", unsafe_allow_html=True)
 
 top_logo_html=f"""
     <div class="topdiv">
@@ -39,14 +73,6 @@ top_logo_html=f"""
     </div>
     """
 
-# sets widescreen and the page_icon and title that show up in the tab
-st.set_page_config(layout="wide", page_title=title_string, page_icon=icon_url)
-
-# load in .css file. right now, main.css is dark theme
-local_css('./assets/css/dark.css')
-local_css('./assets/css/main.css')
-# Open Sans font
-st.markdown("<link rel=\"stylesheet\" type=\"text/css\" href=\"//fonts.googleapis.com/css?family=Open+Sans\" />", unsafe_allow_html=True)
 # writes the logo and title into the header
 st.markdown(top_logo_html, unsafe_allow_html=True)  
 
@@ -75,8 +101,9 @@ df = pd.read_csv('./assets/data/stormofswords.csv')
 dl_link = download_link(df, "test.csv", "Download")
 
 with sidebar:
-    st.markdown("<p class='section-title'>Data Inputs</p>",unsafe_allow_html=True)
-    st.markdown("<p class='content'>Regular content that's not in an accordion or card looks like this</p>", unsafe_allow_html=True)
+    st.header("Data Inputs")
+    st.markdown("<p>Regular content that's not in an accordion or card looks like this</p>", unsafe_allow_html=True)
+    st.text("text text text")
     text_side = st.text_input('Text Input', 'Placeholder')
 
     select_side = st.selectbox('Dropdown Select', ('Option 1', 'Option 2','Option 3'))
@@ -86,19 +113,30 @@ with sidebar:
 
 
 with main:
-    st.markdown(f"<p class='title'>{title_string}</p>",unsafe_allow_html=True)
+    st.title(title_string)
     
     expander1 = st.beta_expander("Accordion title", expanded=False)
     with expander1:
-        st.markdown("<p class='content2'>Hidden accordion content</p>",unsafe_allow_html=True)
+        st.markdown("<p class='card'>Hidden accordion content</p>",unsafe_allow_html=True)
     expander2 = st.beta_expander("Accordion title", expanded=True)
     with expander2:
-        st.markdown("<p class='content2'>The content within an accordion panel could include a variety of content types. The content can be – a long paragraph of description text, structured content, unordered lists, images with captions, simple or complex tables, data visualizations and a lot more.The content within an accordion panel could include a variety of content types. The content can be – a long paragraph of description text, structured content, unordered lists, images with captions, simple or complex tables, data visualizations and a lot more.</p>", unsafe_allow_html=True);
+        st.markdown("<p class='card'>The content within an accordion panel could include a variety of content types. The content can be – a long paragraph of description text, structured content, unordered lists, images with captions, simple or complex tables, data visualizations and a lot more.The content within an accordion panel could include a variety of content types. The content can be – a long paragraph of description text, structured content, unordered lists, images with captions, simple or complex tables, data visualizations and a lot more.</p>", unsafe_allow_html=True);
 
-    st.markdown("<div class='card'><p class='card-title'>Cool card title<p class='content2'>Lots of card content and stuff<br><br>tincidunt sit amet nibh ut imperdiet. Suspendisse dictum finibus velit, in ullamcorper nibh efficitur non. Pellentesque aliquet quam in lorem viverra, et condimentum nunc fringilla. Morbi non tempus leo. Curabitur eget velit risus. Quisque dictum risus ut mattis semper. Ut semper nulla luctus, rutrum elit a, iaculis neque. Integer malesuada sollicitudin risus, sed pulvinar justo volutpat pretium. Sed fermentum scelerisque diam fermentum congue. Maecenas non est ante. Proin eu ex ante.</p></div>",unsafe_allow_html=True);
+    st.markdown("<div class='card'><h3>Cool card title</h3><p class=card>Lots of card content and stuff<br><br>tincidunt sit amet nibh ut imperdiet. Suspendisse dictum finibus velit, in ullamcorper nibh efficitur non. Pellentesque aliquet quam in lorem viverra, et condimentum nunc fringilla. Morbi non tempus leo. Curabitur eget velit risus. Quisque dictum risus ut mattis semper. Ut semper nulla luctus, rutrum elit a, iaculis neque. Integer malesuada sollicitudin risus, sed pulvinar justo volutpat pretium. Sed fermentum scelerisque diam fermentum congue. Maecenas non est ante. Proin eu ex ante.</p></div>",unsafe_allow_html=True);
 
     if test_sel == 'Yes':
         st.dataframe(df)
 
     if check_test:
         st.line_chart(chart_data)
+
+    st.button('ST Button')
+    st.multiselect('Multiselect', [1,2,3])
+    st.slider('Slide me', min_value=0, max_value=10)
+    st.select_slider('Slide to select', options=[1,'2'])
+    st.number_input('Enter a number')
+    st.text_area('Area for textual entry')
+    st.date_input('Date input')
+    st.time_input('Time entry')
+    st.file_uploader('File uploader')
+    st.color_picker('Pick a color')

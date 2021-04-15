@@ -1,13 +1,13 @@
 /* Standard CSS for DS Prototype apps
 
-/* this is the topbar */
+/* this is the topbar with logo/title */
 header {
 	height: 75px !important;
 	background-color: var(--topbar-bg-color) !important;
 	background-image: none !important;
 }
 
-/* this is the main section */
+/* this is the main section background - overwrites config.toml */
 div[data-testid=stReportViewContainer]{
 	background-color: var(--main-bg-color);
 }
@@ -32,126 +32,6 @@ div[data-testid=stReportViewContainer]{
 	left: 10px;
 }
 
-/* labels for most inputs */
-label {
-	font-size: 16px !important;
-	color: var(--content-color) !important;
-	font-family: var(--font-fam);
-	font-weight: 400;
-}
-
-/* main section title */ 
-.title{
-	color: var(--title-color);
-	font-size: 24px;
-	font-family: var(--font-fam);
-	font-weight: 700;
-} 
-
-/* expanded part of accordion */
-.streamlit-expanderContent {
-	background-color: var(--card-bg-color);
-}
-
-/* not expanded part of accordion */
-.streamlit-expanderHeader {
-	background-color: var(--accordion-bg-color);
-	color: var(--accordion-text-color);
-	font-family: var(--font-fam);
-	padding: 20px 20px;
-	font-weight: 700;
-	font-size: 14px;
-} 
-
-.card-title{
-	color: var(--title-color);
-	font-size: 20px;
-	font-family: var(--font-fam);
-	font-weight: 700;
-	padding-left: 20px;
-	margin-bottom: 10px;
-}
-
-.section-title{
-	color: var(--title-color);
-	font-size: 20px;
-	font-family: var(--font-fam);
-	font-weight: 700;
-}
-
-.card {
-	background-color: var(--card-bg-color);
-	box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.24);
-	border-radius: 4px;
-	max-width: var(--max-width);
-	padding-top: 20px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-/* body content */
-.content {
-	font-size: 16px;
-	color: var(--content-color);
-	font-family: var(--font-fam);
-	font-weight: 400;
-	padding-top: 10px;
-}
-
-/* accordion and card content */
-.content2 {
-	font-size: 14px;
-	font-family: var(--font-fam);
-	color: var(--content2-color);
-	font-weight: 400;
-	margin-bottom: 0px;
-	padding: 20px;
-	padding-top: 0px;
-}
-
-/* INPUTS */
-/* text box bg */
-div[data-baseweb=base-input] {
-	background-color: var(--input-bg-color);
-}
-
-/* text box text */
-div[data-baseweb=base-input] > input{
-	color: var(--input-text-color);
-}
-
-/* selectbox bg */
-div[data-baseweb=select] > div{
-	background-color: var(--input-bg-color) !important; 
-}
-
-/* drop down options wrapper */
-div[data-baseweb=popover] {
-	margin-top: 6px !important; 
-	background-color: rgba(0,0,0,0) !important;
-}
-
-/* active drop down option */
-div[data-baseweb=popover] li[aria-selected=true] {
-	background: var(--dropdown-hover-color) !important;
-}
-
-/* selectbox options */
-ul {
-	background-color: var(--dropdown-bg-color) !important;
-}
-
-/* selectbox and text input font family */
-.st-ae {
-	font-family: var(--font-fam);
-}
-
-/* drop down and text input boxes */
-.stSelectbox, .stTextInput {
-	max-width: var(--max-width);
-	padding-top: 20px;
-}
-
 /* REMOVING STREAMLIT BRANDING THINGS */
 /* hamburger menu in top right */
 #MainMenu {
@@ -173,12 +53,185 @@ footer{
 	display: none !important;
 }
 
-.downloadlink {
-	background-color: var(--button-color);
-	padding: 10px 16px;
-	border-radius: 4px; 
+/* FONTS */
+/* st.title() */ 
+h1{
+	color: var(--title-color);
+	font-size: 24px;
 	font-family: var(--font-fam);
 	font-weight: 700;
+	margin-bottom: 20px;
+} 
+
+/* st.header() */
+h2{
+	color: var(--title-color);
+	font-size: 20px;
+	font-family: var(--font-fam);
+	font-weight: 700;
+}
+
+/* st.subheader() and card title */
+h3{
+	color: var(--title-color);
+	font-size: 20px;
+	font-family: var(--font-fam);
+	font-weight: 700;
+	padding-left: 20px;
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+/* accordion content box */
+.streamlit-expanderContent {
+	background-color: var(--accordion-expand-bg-color);
+}
+
+/* accordion title */
+.streamlit-expanderHeader {
+	background-color: var(--accordion-bg-color);
+	color: var(--accordion-text-color);
+	font-family: var(--font-fam);
+	padding: 20px 20px;
+	font-weight: 700;
+	font-size: 14px;
+} 
+
+/* wrapper for card */
+div.card {
+	background-color: var(--card-bg-color);
+	box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.24);
+	border-radius: 4px;
+	max-width: var(--max-width);
+	padding-top: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+/* body content */
+p, div[data-testid=stText] {
+	font-size: 16px;
+	color: var(--content-color);
+	font-family: var(--font-fam);
+	font-weight: 400;
+	padding-top: 10px;
+}
+
+/* accordion and card content */
+p.card {
+	font-size: 14px;
+	font-family: var(--font-fam);
+	color: var(--content2-color);
+	font-weight: 400;
+	margin-bottom: 0px;
+	padding: 20px;
+	padding-top: 0px;
+}
+
+/* INPUTS 
+/* text box bg */
+div[data-baseweb=base-input] {
+	background-color: var(--input-bg-color);
+}
+
+/* text box text */
+div[data-baseweb=base-input] > input{
+	color: var(--input-text-color);
+}
+
+/* selectbox bg */
+div[data-baseweb=select] > div{
+	background-color: var(--input-bg-color) !important; 
+}
+
+/* select box text */
+div[data-baseweb=select] > div > div{
+	color: var(--input-text-color) !important; 
+}
+
+/* select box options text */
+li > span {
+	color: var(--input-text-color);
+}
+
+/* select box options wrapper */
+div[data-baseweb=popover] {
+	margin-top: 6px !important; 
+	background-color: rgba(0,0,0,0) !important;
+}
+
+/* select box active option */
+div[data-baseweb=popover] li[aria-selected=true] {
+	background: var(--dropdown-hover-color) !important;
+}
+
+/* selectbox options */
+ul {
+	background-color: var(--dropdown-bg-color) !important;
+}
+
+/* labels for most inputs */
+label {
+	font-size: 16px !important;
+	font-family: var(--font-fam);
+	font-weight: 400;
 	color: var(--content-color) !important;
-	text-decoration: none;
+}
+
+/* labels for radio options and checkbox */
+label > div {
+	color: var(--content-color) !important;
+} 
+
+/* selectbox and textinput font family */
+.st-ae {
+	font-family: var(--font-fam);
+}
+
+/* select and text input boxes */
+.stSelectbox, .stTextInput {
+	max-width: var(--max-width);
+	padding-top: 20px;
+}
+
+/* styles the link returned by download_link() and st.button */
+.downloadlink, div.stButton > button {
+	background-color: var(--button-color) !important;
+	padding: 10px 16px !important;
+	border-radius: 4px !important; 
+	font-family: var(--font-fam) !important;
+	font-weight: 700 !important;
+	color: var(--button-text-color) !important;
+	text-decoration: none !important;
+}
+
+/* adds padding between st.beta_columns() */
+div[data-testid=stHorizontalBlock] > div {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+/* active value on sliders */
+div[data-testid=stThumbValue] {
+	font-family: var(--font-fam);
+	font-size: 14px;
+	font-color: var(--content-color);
+}
+
+/* min/max values on slider */
+div[data-testid=stTickBarMin], div[data-testid=stTickBarMax] {
+	font-family: var(--font-fam);
+	font-size: 14px;
+	color: var(--content-color);
+}
+
+/* text in upload file box */
+section[data-testid=stFileUploadDropzone] > div > div {
+	font-family: var(--font-fam);
+}
+
+/* buttons in anything that is not download_link or st.button 
+	ex: upload file, +/- buttons on number input */
+button {
+	font-family: var(--font-fam);
 }
