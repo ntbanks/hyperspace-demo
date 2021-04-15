@@ -28,14 +28,21 @@ st.text() - this is designed by streamlit as a fixed width text display and will
 
 Accordion:
 The title bar of the accordion is styled automatically but the content needs to be wrapped in a paragraph tag like this:
->    expander1 = st.beta_expander("Accordion title", expanded=False)
->    with expander1:
->        st.markdown("<p class='card'>Hidden accordion content</p>",unsafe_allow_html=True)
+```
+expander1 = st.beta_expander("Accordion title", expanded=False)
+with expander1:
+    st.markdown("<p class='card'>Hidden accordion content</p>",unsafe_allow_html=True)
+```
 OR
-there is a "get_accordion()" function that takes a string and returns the string wrapped in the <p> tag
->    with expander1:
->        st.markdown(get_accordion("Hidden accordion content"),unsafe_allow_html=True)
+there is a "get_accordion()" function that takes a string and returns the string wrapped in the tag
+```
+expander1 = st.beta_expander("Accordion title", expanded=False)
+with expander1:
+    st.markdown(get_accordion("Hidden accordion content"),unsafe_allow_html=True)
+```
 
 Cards:
 There is a "get_card()" function that takes two args (title, content) and wraps them in the necessary html tags and returns the full html needed for the card.
-> st.markdown(get_card("title","content"), unsafe_allow_html=True)
+```
+st.markdown(get_card("title","content"), unsafe_allow_html=True)
+```
