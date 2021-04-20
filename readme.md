@@ -1,6 +1,6 @@
 # Streamlit Theme
 ## Install
-> pip install -r requirements.txt
+> pip install streamlit
 
 ## Running
 There are two versions of the app.\
