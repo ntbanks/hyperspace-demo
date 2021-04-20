@@ -8,6 +8,7 @@ Adding "import theme" to the top of the streamlit python file will bring in all 
 There are two example versions of theme.py being used.\
 Both can accept a theme argument with either "light" or "dark" as options:
 > streamlit run app.py -- --theme light
+
 dark is the default\
 \
 The extra set of "--" is so that streamlit ignores all of the args and they get passed straight to the python.\
