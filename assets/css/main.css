@@ -239,3 +239,11 @@ section[data-testid=stFileUploadDropzone] > div > div {
 button {
 	font-family: var(--font-fam);
 }
+
+.fright {
+	float: right;
+}
+
+.fleft {
+	float: left;
+}

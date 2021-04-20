@@ -14,12 +14,13 @@ def load_image(path):
     with open(path,"rb") as img:
         return base64.b64encode(img.read()).decode()
 
-def download_link(object_to_download, download_filename, download_link_text):
+def download_link(object_to_download, download_filename, download_link_text, align="left"):
     """
     Generates a link to download the given object_to_download.
     object_to_download (str, pd.DataFrame):  The object to be downloaded.
     download_filename (str): filename and extension of file. e.g. mydata.csv, some_txt_output.txt
     download_link_text (str): Text to display for download link.
+    align (str): optional "right" or "left" argument to align the button on the right. left is default
     Examples:
         download_link(YOUR_DF, 'YOUR_DF.csv', 'Click here to download data!')
         download_link(YOUR_STRING, 'YOUR_STRING.txt', 'Click here to download your text!')
@@ -28,10 +29,17 @@ def download_link(object_to_download, download_filename, download_link_text):
         object_to_download = object_to_download.to_csv(index=False)
         # some strings <-> bytes conversions necessary here
         b64 = base64.b64encode(object_to_download.encode()).decode()
-        return f'<a class=downloadlink href="data:file/txt;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
+        return f'<a class="downloadlink f{align}" href="data:file/txt;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
 
-def get_card(title, content):
-    return f"<div class='card'><h2 class=card-title>{title}</h2><p class='card'>{content}</p></div>"
+def get_card(title, content, align="left"):
+    """
+    Generate the html to build a "card".
+    title (str): the title of the card
+    content (str): the content of the card
+    align (str): optional "right" or "left" argument to align card on the right. left is default
+
+    """
+    return f"<div class='card  f{align}'><h2 class=card-title>{title}</h2><p class='card'>{content}</p></div>"
 
 def get_accordion(content):
     return f"<p class='card'>{content}</p>"
@@ -104,7 +112,7 @@ chart_data = pd.DataFrame(
      columns=['a', 'b', 'c'])
 
 df = pd.read_csv('./assets/data/stormofswords.csv')
-dl_link = download_link(df, "test.csv", "Download")
+dl_link = download_link(df, "test.csv", "Download", "right")
 
 with sidebar:
     st.header("Data Inputs")
@@ -128,7 +136,7 @@ with main:
     with expander2:
         st.markdown("<p class='card'>The content within an accordion panel could include a variety of content types. The content can be – a long paragraph of description text, structured content, unordered lists, images with captions, simple or complex tables, data visualizations and a lot more.The content within an accordion panel could include a variety of content types. The content can be – a long paragraph of description text, structured content, unordered lists, images with captions, simple or complex tables, data visualizations and a lot more.</p>", unsafe_allow_html=True)
 
-    st.markdown(get_card("Cool card title","Lots of card content and stuff<br><br>tincidunt sit amet nibh ut imperdiet. Suspendisse dictum finibus velit, in ullamcorper nibh efficitur non. Pellentesque aliquet quam in lorem viverra, et condimentum nunc fringilla. Morbi non tempus leo. Curabitur eget velit risus. Quisque dictum risus ut mattis semper. Ut semper nulla luctus, rutrum elit a, iaculis neque. Integer malesuada sollicitudin risus, sed pulvinar justo volutpat pretium. Sed fermentum scelerisque diam fermentum congue. Maecenas non est ante. Proin eu ex ante."),unsafe_allow_html=True)
+    st.markdown(get_card("Cool card title","Lots of card content and stuff<br><br>tincidunt sit amet nibh ut imperdiet. Suspendisse dictum finibus velit, in ullamcorper nibh efficitur non. Pellentesque aliquet quam in lorem viverra, et condimentum nunc fringilla. Morbi non tempus leo. Curabitur eget velit risus. Quisque dictum risus ut mattis semper. Ut semper nulla luctus, rutrum elit a, iaculis neque. Integer malesuada sollicitudin risus, sed pulvinar justo volutpat pretium. Sed fermentum scelerisque diam fermentum congue. Maecenas non est ante. Proin eu ex ante.","right"),unsafe_allow_html=True)
 
     if test_sel == 'Yes':
         st.dataframe(df)
