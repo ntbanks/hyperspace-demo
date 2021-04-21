@@ -56,3 +56,7 @@ st.markdown(theme.get_card("title","content"), unsafe_allow_html=True)
 ### Download link:
 There is a download_link() function in the theme file that returns the html for a download button.\
 download_link has the same optional argument "align" that allows you to align the button on the right side of the screen.
+```
+download_html = theme.download_link(df, filename, 'EXPORT DATA')
+st.markdown(download_html, unsafe_allow_html=True)
+```
