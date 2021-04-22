@@ -122,7 +122,7 @@ def load_scaler():
 
 
 def get_single_hazard(params:dict,
-                     scaler_xtrain, clf, b):
+                     scaler_xtrain, clf, b, survival_curve):
     """takes a single sample of data in the form of a dictionary and 
     returns the hazard function predicted by the model clf."""
     db = pd.DataFrame(params.values(), index=b.keys()).T[input_cols]
@@ -151,15 +151,15 @@ input_cols = ['setting_1', 'setting_2', 'setting_3', 's_1',
 sats = tuple(dfval['id'].unique())
 sat = st.sidebar.selectbox('Select Satellite', sats)
 
-
+#survival_curve = [1]
 
 def stream_sat(sat):
-    survival_curve = [1]
     dfsat = dfval[dfval['id']==sat]
     dfsat.reset_index(inplace=True)
+    survival_curve = [1]
     for i in dfsat.index:
         b = dfsat.iloc[i].to_dict()
-        h = get_single_hazard(b, scaler_xtrain, model, b)
+        h = get_single_hazard(b, scaler_xtrain, model, b, survival_curve)
         st.write(survival_curve[-1])
         sleep(.8)
 
