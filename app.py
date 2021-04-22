@@ -175,13 +175,13 @@ start_monitoring = st.button('Start Monitoring')
 #    last_rows = new_rows
 #    time.sleep(0.05)
 
-st.dataframe(dfpara.head())
+#st.dataframe(dfpara.head())
 
 
-f = px.parallel_coordinates(dfpara[list(input_cols) + ['RUL']],
-                color='RUL',title=f"Parallel Coordinate Plot",
-            color_continuous_scale=px.colors.diverging.Tealrose)
-st.plotly_chart(f)
+#f = px.parallel_coordinates(dfpara[list(input_cols) + ['RUL']],
+#                color='RUL',title=f"Parallel Coordinate Plot",
+#            color_continuous_scale=px.colors.diverging.Tealrose)
+#st.plotly_chart(f)
 
 
 def other_monitor(sat):
@@ -199,6 +199,13 @@ def other_monitor(sat):
     #    y='surv_prob')
     #st.altair_chart(c)
     #chart_row = st.empty()
+    f = px.parallel_coordinates(dfpara[list(input_cols) + ['RUL']],
+                color='RUL',title=f"Parallel Coordinate Plot",
+            color_continuous_scale=px.colors.diverging.Tealrose)
+    para_plot = st.plotly_chart(f)
+    #chart_row = st.empty()
+    dfsatpara = dfsat.copy()
+    dfsatpara['RUL'] = 25
     for i in dfsat.index:
         b = dfsat.iloc[i].to_dict()
         h = get_single_hazard(b, scaler_xtrain, model, b, survival_curve)
@@ -210,6 +217,7 @@ def other_monitor(sat):
         
         new_row = start_row*([[1.0]] - h)
         chart.add_rows(new_row)
+        #para_plot.add_rows(dfsatpara.iloc[i])
         start_row = new_row
         #chart_row.altair_chart(c, use_container_width=True)
         sleep(1./freq)
