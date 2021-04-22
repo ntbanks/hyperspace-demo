@@ -12,8 +12,9 @@ from pickle import load
 from keras.models import load_model
 import keras
 from sklearn.preprocessing import StandardScaler
-
+from collections import deque
 from time import sleep
+import matplotlib.pyplot as plt
 
 
 
@@ -156,12 +157,30 @@ sat = st.sidebar.selectbox('Select Satellite', sats)
 def stream_sat(sat):
     dfsat = dfval[dfval['id']==sat]
     dfsat.reset_index(inplace=True)
+    fig, ax = plt.subplots()
+    max_samples = 100
+    max_x = max_samples
+    x = np.arange(0, max_x)
+    y = deque(np.zeros(max_samples), max_samples)
+    ax .set_ylim(0, 1.2)
+    line, = ax.plot(x, np.array(y))
+    the_plot = st.pyplot(plt)
     survival_curve = [1]
+    def animate():
+        line.set_ydata(np.array(y))
+        the_plot.pyplot(plt)
+        y.append(survival_curve[-1])
+    
     for i in dfsat.index:
         b = dfsat.iloc[i].to_dict()
         h = get_single_hazard(b, scaler_xtrain, model, b, survival_curve)
-        st.write(survival_curve[-1])
-        sleep(.8)
+        #st.write(survival_curve[-1])
+        animate()
+        sleep(.2)
+    
+    
+    
+    
 
 
 stream_sat(sat)
