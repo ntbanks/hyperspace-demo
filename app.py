@@ -15,6 +15,7 @@ from sklearn.preprocessing import StandardScaler
 from collections import deque
 from time import sleep
 import matplotlib.pyplot as plt
+import altair as alt
 
 
 
@@ -169,7 +170,22 @@ def stream_sat(sat):
     ax .set_ylim(0, 1.2)
     line, = ax.plot(x, np.array(y))
     the_plot = st.pyplot(plt)
+    # swap out an altair chart here
+    source = pd.DataFrame(({
+        'x': x,
+        'y': y
+    }))
+    c = alt.Chart(source).mark_line().encode(
+        x='x',
+        y='y')
+    altair_plot = st.altair_chart(c, use_container_width=True)
     survival_curve = [1]
+    def animate_altair():
+        source = pd.DataFrame(({
+        'x': x,
+        'y': y
+        }))
+        
     def animate():
         line.set_ydata(np.array(y))
         the_plot.pyplot(plt)
