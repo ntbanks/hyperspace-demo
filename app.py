@@ -15,6 +15,7 @@ from sklearn.preprocessing import StandardScaler
 from collections import deque
 from time import sleep
 import matplotlib.pyplot as plt
+import altair as alt
 
 
 
@@ -150,7 +151,10 @@ input_cols = ['setting_1', 'setting_2', 'setting_3', 's_1',
 
 
 sats = tuple(dfval['id'].unique())
+freq = st.sidebar.slider('Update Cycles per Second', min_value=1, max_value=3000)
 sat = st.sidebar.selectbox('Select Satellite', sats)
+start_monitoring = st.button('Start Monitoring')
+
 
 #survival_curve = [1]
 
@@ -162,10 +166,26 @@ def stream_sat(sat):
     max_x = max_samples
     x = np.arange(0, max_x)
     y = deque(np.zeros(max_samples), max_samples)
+    #y = deque(np.ones(2), max_samples)
     ax .set_ylim(0, 1.2)
     line, = ax.plot(x, np.array(y))
     the_plot = st.pyplot(plt)
+    # swap out an altair chart here
+    source = pd.DataFrame(({
+        'x': x,
+        'y': y
+    }))
+    c = alt.Chart(source).mark_line().encode(
+        x='x',
+        y='y')
+    altair_plot = st.altair_chart(c, use_container_width=True)
     survival_curve = [1]
+    def animate_altair():
+        source = pd.DataFrame(({
+        'x': x,
+        'y': y
+        }))
+        
     def animate():
         line.set_ydata(np.array(y))
         the_plot.pyplot(plt)
@@ -176,14 +196,13 @@ def stream_sat(sat):
         h = get_single_hazard(b, scaler_xtrain, model, b, survival_curve)
         #st.write(survival_curve[-1])
         animate()
-        sleep(.2)
+        sleep(1./freq)
     
     
     
     
-
-
-stream_sat(sat)
+if start_monitoring:
+    stream_sat(sat)
 
 
 ## EVERYTHING FROM HERE DOWN IS JUST EXAMPLES!
