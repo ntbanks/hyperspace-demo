@@ -16,6 +16,7 @@ from collections import deque
 from time import sleep
 import matplotlib.pyplot as plt
 import altair as alt
+import plotly.express as px
 
 
 
@@ -113,6 +114,11 @@ def get_dfval_frame():
         return dfval_new
     
 @st.cache
+def get_baseline_pcp():
+    dfpara = pd.read_csv('baseline_parallel_plot.csv')
+    return dfpara
+    
+@st.cache
 def load_saved_model():
     model = load_model('model_notime.h5')
     
@@ -139,6 +145,7 @@ def get_single_hazard(params:dict,
     
 dfval = get_dfval_frame()
 #model = load_saved_model()
+dfpara = get_baseline_pcp()
 model = load_model('model_notime.h5')
 #scaler_xtrain = load_scaler()
 scaler_xtrain = load(open('scaler_xtrain_notime.pkl','rb'))
@@ -167,6 +174,15 @@ start_monitoring = st.button('Start Monitoring')
 #    progress_bar.progress(i)
 #    last_rows = new_rows
 #    time.sleep(0.05)
+
+st.dataframe(dfpara.head())
+
+
+f = px.parallel_coordinates(dfpara[list(input_cols) + ['RUL']],
+                color='RUL',title=f"Parallel Coordinate Plot",
+            color_continuous_scale=px.colors.diverging.Tealrose)
+st.plotly_chart(f)
+
 
 def other_monitor(sat):
     dfsat = dfval[dfval['id']==sat]
