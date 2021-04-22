@@ -150,8 +150,10 @@ input_cols = ['setting_1', 'setting_2', 'setting_3', 's_1',
 
 
 sats = tuple(dfval['id'].unique())
-freq = st.slider('Update Cycles per Second', min_value=1, max_value=1000)
+freq = st.sidebar.slider('Update Cycles per Second', min_value=1, max_value=3000)
 sat = st.sidebar.selectbox('Select Satellite', sats)
+start_monitoring = st.button('Start Monitoring')
+
 
 #survival_curve = [1]
 
@@ -163,6 +165,7 @@ def stream_sat(sat):
     max_x = max_samples
     x = np.arange(0, max_x)
     y = deque(np.zeros(max_samples), max_samples)
+    #y = deque(np.ones(2), max_samples)
     ax .set_ylim(0, 1.2)
     line, = ax.plot(x, np.array(y))
     the_plot = st.pyplot(plt)
@@ -182,9 +185,8 @@ def stream_sat(sat):
     
     
     
-
-
-stream_sat(sat)
+if start_monitoring:
+    stream_sat(sat)
 
 
 ## EVERYTHING FROM HERE DOWN IS JUST EXAMPLES!
