@@ -174,15 +174,28 @@ def other_monitor(sat):
     survival_curve = [1.0000]
     start_row = [[1.000]]
     #chart = st.line_chart(np.array(survival_curve).reshape(len(survival_curve), -1))
+    #dfchart = pd.DataFrame({'surv_prob': 1}, index=[0])
+    #dfchart = pd.DataFrame({'surv_prob': [1.]})
+    #dfchart['reading_number'] = dfchart.index
     chart = st.line_chart(start_row)
-    
+    #c = alt.Chart(dfchart).mark_line().encode(
+    #    x='reading_number',
+    #    y='surv_prob')
+    #st.altair_chart(c)
+    #chart_row = st.empty()
     for i in dfsat.index:
         b = dfsat.iloc[i].to_dict()
         h = get_single_hazard(b, scaler_xtrain, model, b, survival_curve)
-        print(h)
+        #df = pd.DataFrame({'surv_prob': [1-h]}, index=[i])
+        #df['reading_number'] = df.index
+        #c = alt.Chart(df).mark_line().encode(
+        #    x='reading_number',
+        #    y='surv_prob')
+        
         new_row = start_row*([[1.0]] - h)
         chart.add_rows(new_row)
         start_row = new_row
+        #chart_row.altair_chart(c, use_container_width=True)
         sleep(1./freq)
     
 
