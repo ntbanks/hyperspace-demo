@@ -157,6 +157,35 @@ start_monitoring = st.button('Start Monitoring')
 
 
 #survival_curve = [1]
+#last_rows = np.random.randn(1, 1)
+#chart = st.line_chart(last_rows)
+
+#for i in range(1, 101):
+#    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
+#    status_text.text("%i%% Complete" % i)
+#    chart.add_rows(new_rows)
+#    progress_bar.progress(i)
+#    last_rows = new_rows
+#    time.sleep(0.05)
+
+def other_monitor(sat):
+    dfsat = dfval[dfval['id']==sat]
+    dfsat.reset_index(inplace=True)
+    survival_curve = [1.0000]
+    start_row = [[1.000]]
+    #chart = st.line_chart(np.array(survival_curve).reshape(len(survival_curve), -1))
+    chart = st.line_chart(start_row)
+    
+    for i in dfsat.index:
+        b = dfsat.iloc[i].to_dict()
+        h = get_single_hazard(b, scaler_xtrain, model, b, survival_curve)
+        print(h)
+        new_row = start_row*([[1.0]] - h)
+        chart.add_rows(new_row)
+        start_row = new_row
+        sleep(1./freq)
+    
+
 
 def stream_sat(sat):
     dfsat = dfval[dfval['id']==sat]
@@ -170,21 +199,11 @@ def stream_sat(sat):
     ax .set_ylim(0, 1.2)
     line, = ax.plot(x, np.array(y))
     the_plot = st.pyplot(plt)
-    # swap out an altair chart here
-    source = pd.DataFrame(({
-        'x': x,
-        'y': y
-    }))
-    c = alt.Chart(source).mark_line().encode(
-        x='x',
-        y='y')
-    altair_plot = st.altair_chart(c, use_container_width=True)
-    survival_curve = [1]
-    def animate_altair():
-        source = pd.DataFrame(({
-        'x': x,
-        'y': y
-        }))
+    #chart = st.line_chart(x,y)
+    #survival_curve = [1]
+    #chart = st.line_chart(np.array(survival_curve).reshape(len(survival_curve), -1))
+    
+
         
     def animate():
         line.set_ydata(np.array(y))
@@ -202,7 +221,8 @@ def stream_sat(sat):
     
     
 if start_monitoring:
-    stream_sat(sat)
+    #stream_sat(sat)
+    other_monitor(sat)
 
 
 ## EVERYTHING FROM HERE DOWN IS JUST EXAMPLES!
