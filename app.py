@@ -150,6 +150,7 @@ input_cols = ['setting_1', 'setting_2', 'setting_3', 's_1',
 
 
 sats = tuple(dfval['id'].unique())
+freq = st.slider('Update Cycles per Second', min_value=1, max_value=1000)
 sat = st.sidebar.selectbox('Select Satellite', sats)
 
 #survival_curve = [1]
@@ -176,7 +177,7 @@ def stream_sat(sat):
         h = get_single_hazard(b, scaler_xtrain, model, b, survival_curve)
         #st.write(survival_curve[-1])
         animate()
-        sleep(.2)
+        sleep(1./freq)
     
     
     
