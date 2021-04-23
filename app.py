@@ -16,6 +16,7 @@ from collections import deque
 from time import sleep
 import matplotlib.pyplot as plt
 import altair as alt
+import plotly.express as px
 
 
 
@@ -113,6 +114,11 @@ def get_dfval_frame():
         return dfval_new
     
 @st.cache
+def get_baseline_pcp():
+    dfpara = pd.read_csv('baseline_parallel_plot.csv')
+    return dfpara
+    
+@st.cache
 def load_saved_model():
     model = load_model('model_notime.h5')
     
@@ -139,6 +145,7 @@ def get_single_hazard(params:dict,
     
 dfval = get_dfval_frame()
 #model = load_saved_model()
+dfpara = get_baseline_pcp()
 model = load_model('model_notime.h5')
 #scaler_xtrain = load_scaler()
 scaler_xtrain = load(open('scaler_xtrain_notime.pkl','rb'))
@@ -157,6 +164,65 @@ start_monitoring = st.button('Start Monitoring')
 
 
 #survival_curve = [1]
+#last_rows = np.random.randn(1, 1)
+#chart = st.line_chart(last_rows)
+
+#for i in range(1, 101):
+#    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
+#    status_text.text("%i%% Complete" % i)
+#    chart.add_rows(new_rows)
+#    progress_bar.progress(i)
+#    last_rows = new_rows
+#    time.sleep(0.05)
+
+#st.dataframe(dfpara.head())
+
+
+#f = px.parallel_coordinates(dfpara[list(input_cols) + ['RUL']],
+#                color='RUL',title=f"Parallel Coordinate Plot",
+#            color_continuous_scale=px.colors.diverging.Tealrose)
+#st.plotly_chart(f)
+
+
+def other_monitor(sat):
+    dfsat = dfval[dfval['id']==sat]
+    dfsat.reset_index(inplace=True)
+    survival_curve = [1.0000]
+    start_row = [[1.000]]
+    #chart = st.line_chart(np.array(survival_curve).reshape(len(survival_curve), -1))
+    #dfchart = pd.DataFrame({'surv_prob': 1}, index=[0])
+    #dfchart = pd.DataFrame({'surv_prob': [1.]})
+    #dfchart['reading_number'] = dfchart.index
+    chart = st.line_chart(start_row)
+    #c = alt.Chart(dfchart).mark_line().encode(
+    #    x='reading_number',
+    #    y='surv_prob')
+    #st.altair_chart(c)
+    #chart_row = st.empty()
+    ##f = px.parallel_coordinates(dfpara[list(input_cols) + ['RUL']],
+    ##            color='RUL',title=f"Parallel Coordinate Plot",
+    ##        color_continuous_scale=px.colors.diverging.Tealrose)
+    ##para_plot = st.plotly_chart(f)
+    #chart_row = st.empty()
+    dfsatpara = dfsat.copy()
+    dfsatpara['RUL'] = 25
+    for i in dfsat.index:
+        b = dfsat.iloc[i].to_dict()
+        h = get_single_hazard(b, scaler_xtrain, model, b, survival_curve)
+        #df = pd.DataFrame({'surv_prob': [1-h]}, index=[i])
+        #df['reading_number'] = df.index
+        #c = alt.Chart(df).mark_line().encode(
+        #    x='reading_number',
+        #    y='surv_prob')
+        
+        new_row = start_row*([[1.0]] - h)
+        chart.add_rows(new_row)
+        #para_plot.add_rows(dfsatpara.iloc[i])
+        start_row = new_row
+        #chart_row.altair_chart(c, use_container_width=True)
+        sleep(1./freq)
+    
+
 
 def stream_sat(sat):
     dfsat = dfval[dfval['id']==sat]
@@ -170,21 +236,11 @@ def stream_sat(sat):
     ax .set_ylim(0, 1.2)
     line, = ax.plot(x, np.array(y))
     the_plot = st.pyplot(plt)
-    # swap out an altair chart here
-    source = pd.DataFrame(({
-        'x': x,
-        'y': y
-    }))
-    c = alt.Chart(source).mark_line().encode(
-        x='x',
-        y='y')
-    altair_plot = st.altair_chart(c, use_container_width=True)
-    survival_curve = [1]
-    def animate_altair():
-        source = pd.DataFrame(({
-        'x': x,
-        'y': y
-        }))
+    #chart = st.line_chart(x,y)
+    #survival_curve = [1]
+    #chart = st.line_chart(np.array(survival_curve).reshape(len(survival_curve), -1))
+    
+
         
     def animate():
         line.set_ydata(np.array(y))
@@ -202,7 +258,8 @@ def stream_sat(sat):
     
     
 if start_monitoring:
-    stream_sat(sat)
+    #stream_sat(sat)
+    other_monitor(sat)
 
 
 ## EVERYTHING FROM HERE DOWN IS JUST EXAMPLES!
