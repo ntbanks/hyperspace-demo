@@ -199,10 +199,10 @@ def other_monitor(sat):
     #    y='surv_prob')
     #st.altair_chart(c)
     #chart_row = st.empty()
-    f = px.parallel_coordinates(dfpara[list(input_cols) + ['RUL']],
-                color='RUL',title=f"Parallel Coordinate Plot",
-            color_continuous_scale=px.colors.diverging.Tealrose)
-    para_plot = st.plotly_chart(f)
+    ##f = px.parallel_coordinates(dfpara[list(input_cols) + ['RUL']],
+    ##            color='RUL',title=f"Parallel Coordinate Plot",
+    ##        color_continuous_scale=px.colors.diverging.Tealrose)
+    ##para_plot = st.plotly_chart(f)
     #chart_row = st.empty()
     dfsatpara = dfsat.copy()
     dfsatpara['RUL'] = 25
