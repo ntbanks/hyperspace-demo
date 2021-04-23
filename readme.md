@@ -1,4 +1,22 @@
+
+
+
+
+
+
 # Streamlit Theme
+
+
+
+## unzip the baseline_parallel_plot.zip file
+But do not commit the unzipped version, it will blow up the github storage limits
+
+TODO 
+implement the parallel coordinate plot.
+Altair is probably the way to go. Plotly was too slow.
+
+
+
 ## Install
 > pip install streamlit
 
